@@ -1,0 +1,32 @@
+:root {
+    --gutter-width: 1%;
+    --column-width: 48%;
+}
+
+section {
+    display: inline-block;
+    width: var(--column-width);
+    margin: var(--gutter-width);
+    text-align: left;
+    vertical-align: top;
+}
+
+table {
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+}
+
+
+.player-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+.playlist-wrapper {
+    width:100%;
+    aspect-ratio: 4 / 5;
+    border-style: solid;
+    border-size: 1px
+}
