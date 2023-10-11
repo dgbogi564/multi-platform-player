@@ -3,18 +3,24 @@ import ReactPlayer from "react-player";
 
 import "./App.css"
 
-import Playlist from "./Playlist"
+import List from "./components/playlist/List.jsx"
+import PlaylistItem from "./components/playlist/PlaylistItem.jsx";
+import PlaylistListItem from "./components/playlist/playlistListItem.jsx";
+import {retrieve, store} from "./utils/localStorage.jsx";
 
 class App extends Component {
     state = {
         url: null,
         playlist: [],
+        playlistList: retrieve("playlistList", []),
+        playlistId: null,
         position: 0,
         playing: false,
         played: 0,
         loop: 0,
         loopText: "Loop: Off"
-    }
+    };
+
 
     load = url => {
         this.setState({url: url, playing: true})
@@ -22,30 +28,30 @@ class App extends Component {
 
     prev = () => {
         if (this.state.position > 1) {
-            let pos = this.state.position - 1
+            let position = this.state.position - 1
             this.setState({
-                url: this.state.playlist[pos].url,
-                pos: pos,
+                url: this.state.playlist[position].url,
+                position: position,
                 playing: true
             })
         }
     }
 
     next = () => {
-        let pos;
+        let position;
         let playing = false;
         if (this.state.position < this.state.playlist.length - 1) {
-            pos = this.state.position + 1
+            position = this.state.position + 1
             playing = true
         } else if (this.state.loop === 1) {
-            pos = 0;
+            position = 0;
             playing = true
         } else {
-            pos = this.state.position
+            position = this.state.position
         }
         this.setState({
-            url: this.state.playlist[pos].url,
-            pos: pos,
+            url: this.state.playlist[position].url,
+            position: position,
             playing: playing
         })
     }
@@ -69,19 +75,18 @@ class App extends Component {
         this.setState({
             url: playlist[0].url,
             playlist: playlist,
-            pos: 0,
+            position: 0,
             playing: true
         })
-        this.player.reload
     }
 
     handleLoop = () => {
         let loop = (this.state.loop + 1) % 3
-        let loopText = ({
-            0: "Loop: Off",
-            1: "Loop: All",
-            2: "Loop: Single"
-        })[loop];
+        let loopText = [
+            "Loop: Off",
+            "Loop: All",
+            "Loop: Single"
+        ][loop];
         this.setState({
             loop: loop,
             loopText: loopText
@@ -115,23 +120,38 @@ class App extends Component {
 
     handleAdd = (input) => {
         console.log("onAdd")
+
         let playlist = [
             ...this.state.playlist,
             ...input.split(/\r?\n/).map((url) => ({url: url, id: crypto.randomUUID()}))
         ]
-        this.setState({})
+        let playlistList = [...this.state.playlistList]
+        let playlistId = this.state.playlistId
+        if (playlistId == null) {
+            playlistId = playlistList.length
+        }
+        playlistList.push({
+            name: new Date().toTimeString(),
+            id: playlistList.length,
+            playlist: playlist
+        })
+
         if (this.state.url == null) {
             this.setState({
                 url: playlist[0].url,
-                playlist: playlist,
-                pos: 0,
+                position: 0,
                 playing: true
             })
-        } else {
-            this.setState({
-                playlist: playlist
-            })
         }
+
+        this.setState({
+            playlist: playlist,
+            playlistId: playlistId,
+            playlistList: playlistList
+        })
+
+        store("textAreaInput", input)
+        store("playlistList", playlistList)
     }
 
     ref = player => {
@@ -139,7 +159,7 @@ class App extends Component {
     }
 
     render() {
-        const {url, playlist, position, playing, played, loop, loopText} = this.state
+        const {url, playlist, playlistList, position, playing, played, loop, loopText} = this.state
         //const SEPARATOR = " · "
         //const loopLabel = ["Loop: Off", "Loop: All", "Loop: Single"]
 
@@ -149,6 +169,7 @@ class App extends Component {
             <div className="app">
                 <section>
                     <h1>Playlist Shuffler</h1>
+
                     <div className='player-wrapper'>
                         <ReactPlayer
                             ref={this.ref}
@@ -201,9 +222,17 @@ class App extends Component {
                                 </button>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <div className="playlistList-wrapper">
+                                    <List data={playlistList} row={PlaylistListItem}/>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </section>
+
                 <section>
                     <table>
                         <tbody>
@@ -214,6 +243,7 @@ class App extends Component {
                                     this.input = input
                                 }}
                                 placeholder="Enter URLs"
+                                defaultValue={retrieve("textAreaInput")}
                                 rows="5"
                             />
                             </td>
@@ -226,7 +256,7 @@ class App extends Component {
                         <tr>
                             <td>
                                 <div className="playlist-wrapper">
-                                    <Playlist data={playlist}/>
+                                    <List data={playlist} row={PlaylistItem}/>
                                 </div>
                             </td>
                         </tr>
