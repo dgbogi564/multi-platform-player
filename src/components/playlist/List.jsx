@@ -1,10 +1,8 @@
-import React from "react";
-import {FixedSizeList} from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
+import React from "react"
+import {FixedSizeList} from "react-window"
+import AutoSizer from "react-virtualized-auto-sizer"
 
-import "./PlaylistItem.css"
-
-const List = React.memo(({data = null, row, itemSize = 20}) => (
+const List = React.memo(({data = null, row, itemSize = 44}) => (
     <AutoSizer>
         {({height, width}) => (
             <FixedSizeList
@@ -21,5 +19,7 @@ const List = React.memo(({data = null, row, itemSize = 20}) => (
         )}
     </AutoSizer>
 ))
+
+List.displayName = "ListComponent"
 
 export default List

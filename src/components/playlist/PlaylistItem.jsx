@@ -7,5 +7,6 @@ const PlaylistItem = React.memo(({index, style, data}) => (
     </div>
 ))
 
+PlaylistItem.displayName = "PlaylistItemComponent"
 
 export default PlaylistItem

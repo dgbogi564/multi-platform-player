@@ -1,12 +1,10 @@
-import {Component} from "react";
-import ReactPlayer from "react-player";
-
-import "./App.css"
+import {Component} from "react"
+import ReactPlayer from "react-player"
 
 import List from "./components/playlist/List.jsx"
-import PlaylistItem from "./components/playlist/PlaylistItem.jsx";
-import PlaylistListItem from "./components/playlist/playlistListItem.jsx";
-import {retrieve, store} from "./utils/localStorage.jsx";
+import PlaylistItem from "./components/playlist/PlaylistItem.jsx"
+import PlaylistListItem from "./components/playlist/playlistListItem.jsx"
+import {retrieve, store} from "./utils/localStorage.jsx"
 
 class App extends Component {
     state = {
@@ -19,7 +17,7 @@ class App extends Component {
         played: 0,
         loop: 0,
         loopText: "Loop: Off"
-    };
+    }
 
 
     load = url => {
@@ -38,8 +36,8 @@ class App extends Component {
     }
 
     next = () => {
-        let position;
-        let playing = false;
+        let position
+        let playing = false
         if (this.state.position < this.state.playlist.length - 1) {
             position = this.state.position + 1
             playing = true
@@ -66,18 +64,6 @@ class App extends Component {
             playlist[j] = temp;
         }
         this.player.seekTo(0)
-    }
-
-    handleShuffle = () => {
-        console.log("onShuffle")
-        let playlist = [...this.state.playlist]
-        this.shuffle(playlist)
-        this.setState({
-            url: playlist[0].url,
-            playlist: playlist,
-            position: 0,
-            playing: true
-        })
     }
 
     handleLoop = () => {
@@ -118,13 +104,15 @@ class App extends Component {
         this.next()
     }
 
-    handleAdd = (input) => {
-        console.log("onAdd")
+    handleShuffle = (input) => {
+        console.log("onShuffle")
 
-        let playlist = [
-            ...this.state.playlist,
-            ...input.split(/\r?\n/).map((url) => ({url: url, id: crypto.randomUUID()}))
-        ]
+        let playlist = input.split(/\r?\n/).map((url) => ({
+            url: "https://" + url.replace("https://", "").replace("http://", ""),
+            id: crypto.randomUUID()
+        }))
+        this.shuffle(playlist)
+
         let playlistList = [...this.state.playlistList]
         let playlistId = this.state.playlistId
         if (playlistId == null) {
@@ -136,18 +124,13 @@ class App extends Component {
             playlist: playlist
         })
 
-        if (this.state.url == null) {
-            this.setState({
-                url: playlist[0].url,
-                position: 0,
-                playing: true
-            })
-        }
-
         this.setState({
+            url: playlist[0].url,
             playlist: playlist,
             playlistId: playlistId,
-            playlistList: playlistList
+            playlistList: playlistList,
+            playing: true,
+            position: 0
         })
 
         store("textAreaInput", input)
@@ -159,11 +142,7 @@ class App extends Component {
     }
 
     render() {
-        const {url, playlist, playlistList, position, playing, played, loop, loopText} = this.state
-        //const SEPARATOR = " · "
-        //const loopLabel = ["Loop: Off", "Loop: All", "Loop: Single"]
-
-        let loopSingle = loop === 2
+        const {url, playlist, playlistList, position, playing, loop, loopText} = this.state
 
         return (
             <div className="app">
@@ -178,7 +157,7 @@ class App extends Component {
                             height="100%"
                             url={url}
                             playing={playing}
-                            loop={loopSingle}
+                            loop={loop === 2}
                             controls={true}
                             onReady={() => console.log("onReady")}
                             onStart={() => console.log("onStart")}
@@ -195,50 +174,34 @@ class App extends Component {
                     <table>
                         <tbody>
                         <tr>
+                            <th>
+                                Playing ({((playlist.length > 0) ? (position + 1) : 0) + " / " + playlist.length}):
+                            </th>
                             <td>
-                                <span>
-                                    Playing ({((playlist.length > 0) ? (position + 1) : 0) + "/" + playlist.length}): {url}
-                                </span>
+                                <a href={url} target="_blank" rel="noreferrer">{url ? url : "N/A"}</a>
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <button onClick={this.handleLoop}>
-                                    {loopText}
-                                </button>
-                                <button onClick={this.handleShuffle}>Shuffle</button>
-                            </td>
-                        </tr>
-                        <tr>
+                            <th>Controls</th>
                             <td>
                                 <button onClick={this.prev}>Prev</button>
                                 <button onClick={this.next}>Next</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button onClick={() => this.load("https://soundcloud.com/tycho/tycho-awake")}>
-                                    Soundcloud autplay test
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="playlistList-wrapper">
-                                    <List data={playlistList} row={PlaylistListItem}/>
-                                </div>
+                                <button onClick={this.handleLoop}>{loopText}</button>
+
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <div className="playlistList-wrapper">
+                        <List data={playlistList} row={PlaylistListItem}/>
+                    </div>
+
                 </section>
 
                 <section>
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>
-                            <textarea
+
+                    <textarea
                                 ref={input => {
                                     this.input = input
                                 }}
@@ -246,11 +209,14 @@ class App extends Component {
                                 defaultValue={retrieve("textAreaInput")}
                                 rows="5"
                             />
-                            </td>
-                        </tr>
+
+                    <table>
+                        <tbody>
                         <tr>
                             <td>
-                                <button onClick={() => this.handleAdd(this.input.value)}>Add</button>
+                                <div className="shuffle-button">
+                                    <button onClick={() => this.handleShuffle(this.input.value)}>Shuffle</button>
+                                </div>
                             </td>
                         </tr>
                         <tr>

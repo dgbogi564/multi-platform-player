@@ -1,0 +1,117 @@
+:root {
+    --gutter-width: 1%;
+    --column-width: 48%;
+
+    /*
+   * Variables with --color-base prefix define
+   * the hue, and saturation values to be used for
+   * hsla colors.
+   *
+   * ex:
+   *
+   * --color-base-{color}: {hue}, {saturation};
+   *
+   */
+
+    --color-base-white: 0 0%;
+    --color-base-black: 240 100%;
+    --color-base-gray: 60 3%;
+
+    /*
+     * Color palettes are made using --color-base
+     * variables, along with a lightness value to
+     * define different variants.
+     *
+     */
+
+    --color-gray-5: hsl(var(--color-base-gray) 5%);
+    --color-gray-10: hsl(var(--color-base-gray) 10%);
+    --color-gray-20: hsl(var(--color-base-gray) 20%);
+    --color-gray-30: hsl(var(--color-base-gray) 30%);
+    --color-gray-40: hsl(var(--color-base-gray) 40%);
+    --color-gray-50: hsl(var(--color-base-gray) 50%);
+    --color-gray-60: hsl(var(--color-base-gray) 60%);
+    --color-gray-70: hsl(var(--color-base-gray) 70%);
+    --color-gray-80: hsl(var(--color-base-gray) 80%);
+    --color-gray-90: hsl(var(--color-base-gray) 90%);
+    --color-gray-95: hsl(var(--color-base-gray) 95%);
+    --color-gray-227: rgb(227, 227, 227);
+}
+
+a {
+    margin: 3px;
+}
+
+body {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+button {
+    cursor: pointer;
+    margin: 3px;
+    padding: 6px 12px;
+    border: 0;
+    border-radius: 3px;
+    outline: 0;
+    background-color: var(--color-gray-95);
+}
+
+button:focus {
+    background-color: var(--color-gray-90);
+}
+
+button:hover {
+    background-color: var(--color-gray-80);
+}
+
+button:active {
+    background-color: var(--color-gray-70);
+}
+
+
+section {
+    display: inline-block;
+    width: var(--column-width);
+    margin: var(--gutter-width);
+    text-align: left;
+    vertical-align: top;
+}
+
+table {
+    width: 100%;
+}
+
+th,
+td,
+textarea {
+  margin-right: 5px;
+  padding: 3px 6px;
+}
+
+th {
+  width: 10%;
+  font-weight: 500;
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+textarea {
+    padding: 5px;
+    width: 100%;
+    height: 500px;
+    margin-right: 5px;
+    border: 2px inset var(--color-gray-70);
+    border-bottom-color: var(--color-gray-227);
+    border-right-color: var(--color-gray-227);
+    border-radius: 3px;
+    resize: none;
+    outline: none;
+}
+
+list, textarea:focus {
+    border-color: var(--color-gray-227);
+    box-shadow: 0 0 5px var(--color-gray-70);
+}
