@@ -1,34 +1,32 @@
 {
   "name": "playlist-randomizer",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "axios": "^1.5.1",
+    "@vitejs/plugin-react": "^4.0.4",
+    "@vitejs/plugin-react-swc": "^3.4.0",
+    "axios": "^1.6.0",
     "react": "^18.2.0",
-    "react-axios": "^2.0.6",
     "react-dom": "^18.2.0",
     "react-player": "^2.13.0",
     "react-virtualized-auto-sizer": "^1.0.20",
-    "react-window": "^1.8.9"
+    "react-window": "^1.8.9",
+    "vite": "^4.4.9"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
+    "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react-swc": "^3.3.2",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react": "^7.32.2",
+    "eslint": "^8.47.0",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^4.4.5"
+    "eslint-plugin-react-refresh": "^0.4.3"
   }
 }
