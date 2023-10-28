@@ -3,3 +3,6 @@
 3. resolve playlists into individual videos (soundcloud, youtube)z 
 4. keep state when page is left 
 5. export current playlist
+
+inspo
+https://tetsuo.qodeinteractive.com/animated-showcase/
