@@ -54,7 +54,7 @@
 
 .playlist-wrapper, .sessionList-wrapper {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    height: 49vh;
 }
 
 .list {
