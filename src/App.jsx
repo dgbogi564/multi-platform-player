@@ -103,7 +103,7 @@ class App extends React.Component {
 
     shuffle = (playlist) => {
         // Inside-Out Shuffle Algorithm
-        for (let i = playlist.length - 1; i > 0; i--) {
+        for (let i = playlist.length - 1; i >= 0; i--) {
             const j = i + Math.floor(Math.random() * (playlist.length - i));
             [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
         }
