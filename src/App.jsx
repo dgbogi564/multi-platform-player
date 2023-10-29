@@ -278,7 +278,7 @@ class App extends React.Component {
                         ref={input => {
                             this.input = input;
                         }}
-                        placeholder="Enter URLs"
+                        placeholder="Enter URLs (one per line)"
                         defaultValue={retrieve("textAreaInput")}
                         rows="5"
                     />
