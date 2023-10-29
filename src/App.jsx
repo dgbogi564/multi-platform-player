@@ -78,8 +78,6 @@ class App extends React.Component {
         } catch (error) {
             console.log("Axios error: " + error);
         }
-
-
         this.setState({playlist: playlist});
     };
 
@@ -104,15 +102,11 @@ class App extends React.Component {
     };
 
     shuffle = (playlist) => {
-        // Fisher-Yates shuffle algorithm: https://stackoverflow.com/a/6274381
-        let i, j, temp;
-        for (i = playlist.length - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * (i + 1));
-            temp = playlist[i];
-            playlist[i] = playlist[j];
-            playlist[j] = temp;
+        // Inside-Out Shuffle Algorithm
+        for (let i = playlist.length - 1; i > 0; i--) {
+            const j = i + Math.floor(Math.random() * (playlist.length - i));
+            [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
         }
-        this.playerRef.seekTo(0);
     };
 
     handleLoop = () => {
