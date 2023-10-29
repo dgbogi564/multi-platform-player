@@ -30,10 +30,10 @@ const PlaylistItemGenerator = (onTripleClickItem = null, onClickButton = null) =
                 </div>
             </div>
         </div>
-    ))
-    playlistItem.displayName = "PlaylistItemComponent"
+    ));
+    playlistItem.displayName = "PlaylistItemComponent";
     return playlistItem;
-}
+};
 
 
-export default PlaylistItemGenerator
+export default PlaylistItemGenerator;

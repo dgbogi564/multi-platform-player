@@ -6,9 +6,9 @@ const SessionListItemGenerator = (onClick = null) => {
             <div className="item-index">{index + 1}</div>
             <div className="item-name">{data[index].name}</div>
         </div>
-    ))
-    sessionItem.displayName = "SessionListItemComponent"
+    ));
+    sessionItem.displayName = "SessionListItemComponent";
     return sessionItem;
-}
+};
 
-export default SessionListItemGenerator
+export default SessionListItemGenerator;

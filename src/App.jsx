@@ -1,10 +1,10 @@
-import React from "react"
-import ReactPlayer from "react-player"
+import React from "react";
+import ReactPlayer from "react-player";
 
-import List from "./components/playlist/List.jsx"
-import PlaylistItemGenerator from "./components/playlist/PlaylistItemGenerator.jsx"
-import SessionListItemGenerator from "./components/playlist/sessionListItemGenerator.jsx"
-import {retrieve, store} from "./utils/localStorage.jsx"
+import List from "./components/playlist/List.jsx";
+import PlaylistItemGenerator from "./components/playlist/PlaylistItemGenerator.jsx";
+import SessionListItemGenerator from "./components/playlist/sessionListItemGenerator.jsx";
+import {retrieve, store} from "./utils/localStorage.jsx";
 import axios from "axios";
 
 class App extends React.Component {
@@ -18,80 +18,80 @@ class App extends React.Component {
         playing: false,
         loop: 0,
         loopText: "Loop: Off"
-    }
+    };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.state.playlistId != null && this.state.sessionList.length > 0) {
-            this.storeState()
+            this.storeState();
         }
     }
 
     load = (position = this.state.position, playlist = this.state.playlist) => {
         if (playlist === this.state.playlist) {
-            playlist = [...playlist]
+            playlist = [...playlist];
         }
-        playlist[this.state.position].playing = false
-        playlist[position].playing = true
+        playlist[this.state.position].playing = false;
+        playlist[position].playing = true;
         this.setState({
             url: playlist[position].url,
             playlist: playlist,
             position: position,
             playing: true
-        })
-        this.playlistRef.scrollToItem(position)
-    }
+        });
+        this.playlistRef.scrollToItem(position);
+    };
 
     storeState = () => {
-        let sessionList = [...this.state.sessionList]
-        let playlistId = this.state.playlistId
-        let session = sessionList[playlistId]
-        let state = this.state
+        let sessionList = [...this.state.sessionList];
+        let playlistId = this.state.playlistId;
+        let session = sessionList[playlistId];
+        let state = this.state;
         session.state = {
             url: state.url,
             playlist: state.playlist,
             position: state.position
-        }
-        store("sessionList", sessionList)
-    }
+        };
+        store("sessionList", sessionList);
+    };
 
     loadState = (index) => {
-        let state = this.state.sessionList[index].state
+        let state = this.state.sessionList[index].state;
         this.setState({
             ...state,
             playlistId: this.state.sessionList[index].id
-        })
-        this.load(state.position, state.playlist)
-    }
+        });
+        this.load(state.position, state.playlist);
+    };
 
     getThumbnail = async (position = this.state.position, playlist = this.state.playlist) => {
-        let video = playlist[position]
+        let video = playlist[position];
         if (video.thumbnail_url) {
-            return
+            return;
         }
-        playlist = [...playlist]
+        playlist = [...playlist];
         try {
-            let data = (await axios.get("https://noembed.com/embed?url=" + video.url)).data
-            video.thumbnail_url = data.thumbnail_url
-            video.title = data.title
-            video.author_name = data.author_name
-            video.author_url = data.author_url
+            let data = (await axios.get("https://noembed.com/embed?url=" + video.url)).data;
+            video.thumbnail_url = data.thumbnail_url;
+            video.title = data.title;
+            video.author_name = data.author_name;
+            video.author_url = data.author_url;
         } catch (error) {
-            console.log("Axios error: " + error)
+            console.log("Axios error: " + error);
         }
 
 
-        this.setState({playlist: playlist})
-    }
+        this.setState({playlist: playlist});
+    };
 
     prev = () => {
         let position = this.state.position;
         if (this.state.position > 0) {
-            position = position - 1
+            position = position - 1;
         } else if (this.state.loop === 1) {
-            position = this.state.playlist.length - 1
+            position = this.state.playlist.length - 1;
         }
-        this.load(position)
-    }
+        this.load(position);
+    };
 
     next = () => {
         let position = this.state.position;
@@ -100,23 +100,23 @@ class App extends React.Component {
         } else if (this.state.loop === 1) {
             position = 0;
         }
-        this.load(position)
-    }
+        this.load(position);
+    };
 
     shuffle = (playlist) => {
         // Fisher-Yates shuffle algorithm: https://stackoverflow.com/a/6274381
         let i, j, temp;
         for (i = playlist.length - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * (i + 1))
+            j = Math.floor(Math.random() * (i + 1));
             temp = playlist[i];
             playlist[i] = playlist[j];
             playlist[j] = temp;
         }
-        this.playerRef.seekTo(0)
-    }
+        this.playerRef.seekTo(0);
+    };
 
     handleLoop = () => {
-        let loop = (this.state.loop + 1) % 3
+        let loop = (this.state.loop + 1) % 3;
         let loopText = [
             "Loop: Off",
             "Loop: All",
@@ -125,102 +125,102 @@ class App extends React.Component {
         this.setState({
             loop: loop,
             loopText: loopText
-        })
-        console.log("OnLoop", {loop, loopText})
-    }
+        });
+        console.log("OnLoop", {loop, loopText});
+    };
 
 
     handlePlay = () => {
-        console.log("onPlay")
-        let playlist = [...this.state.playlist]
-        playlist[this.state.position].playing = true
-        this.setState({playlist: playlist, playing: true})
-    }
+        console.log("onPlay");
+        let playlist = [...this.state.playlist];
+        playlist[this.state.position].playing = true;
+        this.setState({playlist: playlist, playing: true});
+    };
 
-    handleSeek = this.handlePlay
+    handleSeek = this.handlePlay;
 
     handlePause = () => {
-        console.log("onPause")
-        let playlist = [...this.state.playlist]
-        playlist[this.state.position].playing = false
-        this.setState({playlist: playlist, playing: false})
-    }
+        console.log("onPause");
+        let playlist = [...this.state.playlist];
+        playlist[this.state.position].playing = false;
+        this.setState({playlist: playlist, playing: false});
+    };
 
     handleEnded = () => {
-        console.log("onEnded")
-        this.next()
-    }
+        console.log("onEnded");
+        this.next();
+    };
 
     handleError = (error) => {
-        console.log("onError", error)
-        this.next()
-    }
+        console.log("onError", error);
+        this.next();
+    };
 
     handleReady = () => {
-        console.log("onReady")
-        this.getThumbnail()
-    }
+        console.log("onReady");
+        this.getThumbnail();
+    };
 
     handleShuffle = () => {
-        console.log("onShuffle")
-        let playlist = [...this.state.playlist]
-        this.shuffle(playlist)
-        this.load(0, playlist)
-    }
+        console.log("onShuffle");
+        let playlist = [...this.state.playlist];
+        this.shuffle(playlist);
+        this.load(0, playlist);
+    };
 
     handlePlaylistItemTripleClick = (e) => {
         if (e.detail === 3) {
             let index = parseInt(e.currentTarget.getAttribute("aria-rowindex"));
-            this.handleClickPlay(index)
+            this.handleClickPlay(index);
         }
-    }
+    };
     handlePlaylistItemButtonClick = (e) => {
         let index = parseInt(e.currentTarget.getAttribute("data-value"));
-        this.handleClickPlay(index)
-    }
+        this.handleClickPlay(index);
+    };
 
     handleClickPlay = (index) => {
         if (index === this.state.position) {
-            (this.state.playing) ? this.handlePause() : this.handlePlay()
+            (this.state.playing) ? this.handlePause() : this.handlePlay();
         } else {
-            this.load(index)
+            this.load(index);
         }
-    }
+    };
 
     handleSessionListItemClick = (e) => {
-        this.loadState(parseInt(e.currentTarget.getAttribute("aria-rowindex")))
-    }
+        this.loadState(parseInt(e.currentTarget.getAttribute("aria-rowindex")));
+    };
 
 
     handlePlayButton = (input) => {
-        console.log("onPlayButton")
+        console.log("onPlayButton");
         let playlist = input.split(/\r?\n/).filter(e => e != null && e !== "").map((url, index) => {
-            url = "https://" + url.replace("https://", "").replace("http://", "")
-            return {url: url, id: index, playing: false}
-        })
-        let sessionList = [...this.state.sessionList]
-        let playlistId = sessionList.length
+            url = "https://" + url.replace("https://", "").replace("http://", "");
+            return {url: url, id: index, playing: false};
+        });
+        let sessionList = [...this.state.sessionList];
+        let playlistId = sessionList.length;
         sessionList.push({
             name: new Date().toTimeString(),
             id: playlistId,
             state: this.state
-        })
-        this.setState({sessionList: sessionList, playlistId: playlistId})
-        this.load(0, playlist)
-        store("textAreaInput", input)
-        store("sessionList", sessionList)
-    }
+        });
+        this.setState({sessionList: sessionList, playlistId: playlistId});
+        this.load(0, playlist);
+        store("textAreaInput", input);
+        store("sessionList", sessionList);
+    };
 
     handlePlaylistRef = ref => {
-        this.playlistRef = ref
-    }
+        this.playlistRef = ref;
+    };
 
     handlePlayerRef = ref => {
-        this.playerRef = ref
-    }
+        this.playerRef = ref;
+    };
 
     render() {
-        const {url, playlist, sessionList, position, playing, loop, loopText} = this.state
+        const {url, playlist, sessionList, position, playing, loop, loopText} = this.state;
 
         return (
             <div className="app">
@@ -282,7 +282,7 @@ class App extends React.Component {
 
                     <textarea
                         ref={input => {
-                            this.input = input
+                            this.input = input;
                         }}
                         placeholder="Enter URLs"
                         defaultValue={retrieve("textAreaInput")}
@@ -310,8 +310,8 @@ class App extends React.Component {
                     </table>
                 </section>
             </div>
-        )
+        );
     }
 }
 
-export default App
+export default App;

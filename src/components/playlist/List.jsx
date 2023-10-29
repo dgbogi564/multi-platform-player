@@ -1,6 +1,6 @@
-import {memo, forwardRef} from "react"
-import {FixedSizeList} from "react-window"
-import AutoSizer from "react-virtualized-auto-sizer"
+import {memo, forwardRef} from "react";
+import {FixedSizeList} from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 const List = memo(forwardRef(({data = null, row, itemSize = 56}, ref) => {
         return (
@@ -20,10 +20,10 @@ const List = memo(forwardRef(({data = null, row, itemSize = 56}, ref) => {
                     </FixedSizeList>
                 )}
             </AutoSizer>
-        )
+        );
     }
-))
+));
 
-List.displayName = "ListComponent"
+List.displayName = "ListComponent";
 
-export default List
+export default List;
