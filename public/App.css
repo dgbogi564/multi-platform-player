@@ -1,0 +1,97 @@
+:root {
+    --column-width: 480px;
+    --gutter-width: 20px;
+}
+
+.player-wrapper {
+    width: 480px;
+    height: 270px;
+}
+
+.react-player {
+    margin-bottom: 10px;
+    background: rgba(0, 0, 0, .1);
+}
+
+.playlist-wrapper, .sessionList-wrapper {
+    width: 480px;
+    border-color: var(--color-gray-50);
+    border-radius: 1px;
+    box-shadow: 0 0 5px var(--color-gray-90);
+}
+
+.playlist-wrapper {
+    aspect-ratio: 0.875;
+}
+
+.sessionList-wrapper {
+    height: 270px;
+}
+
+.row:hover .hover-hidden, .row .hover-show {
+    display: none;
+}
+
+.row .hover-hidden, .row:hover .hover-show {
+    display: inherit;
+}
+
+.row:hover {
+    background-color: var(--color-gray-97);
+}
+
+.row {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: min-content [last] minmax(120px, 1fr);
+    box-sizing: border-box;
+    padding: 0 var(--content-spacing);
+    align-items: center;
+    border-bottom: 1px solid var(--color-gray-80);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.index {
+}
+
+.display {
+
+    display: flex;
+    align-items: center;
+}
+
+.author:hover, .title:hover {
+    text-decoration: underline;
+}
+
+.title, .author {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    white-space: unset;
+    text-decoration: none;
+}
+
+.thumbnail {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 16px;
+}
+
+.details {
+    display: inline-grid;
+}
+
+.play-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 3.4em;
+}
+
+.interactive {
+    cursor: pointer;
+}

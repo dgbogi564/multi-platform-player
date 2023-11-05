@@ -16,7 +16,7 @@ The goal of this project is to create a website that can perform the following f
 - [x] Truly randomize and shuffle songs.
 - [ ] Save, manage, and resume past sessions.
 - [ ] Convert playlists into individual songs.
-- [ ] Export sessions as text files.
+- [ ] Export sessions as input files.
 
 ## Issues
 Soundcloud has indefinitely closed registration for their API so it may be impossible to implement playlist resolving at the moment.

@@ -1,21 +1,14 @@
-* {
-    box-sizing: border-box;
-}
-
 :root {
-    --gutter-width: 1%;
-    --column-width: 48%;
-
     /*
-   * Variables with --color-base prefix define
-   * the hue, and saturation values to be used for
-   * hsla colors.
-   *
-   * ex:
-   *
-   * --color-base-{color}: {hue}, {saturation};
-   *
-   */
+     * Variables with --color-base prefix define
+     * the hue, and saturation values to be used for
+     * hsla colors.
+     *
+     * ex:
+     *
+     * --color-base-{color}: {hue}, {saturation};
+     *
+     */
 
     --color-base-white: 0 0%;
     --color-base-black: 240 100%;
@@ -39,12 +32,16 @@
     --color-gray-80: hsl(var(--color-base-gray) 80%);
     --color-gray-90: hsl(var(--color-base-gray) 90%);
     --color-gray-95: hsl(var(--color-base-gray) 95%);
-    --color-gray-227: rgb(227, 227, 227);
-
-    --color-test: rgb(40,42,41);
+    --color-gray-97: hsl(var(--color-base-gray) 97%);
 
     --content-spacing: clamp(16px, 16px + (100vw - 420px - 0px - 600px) / 424 * 8, 24px);
-    --min-width: 500px;
+}
+
+:root {
+    margin: auto;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    text-align: center;
 }
 
 a {
@@ -54,9 +51,69 @@ a {
 }
 
 body {
+    display: flex;
+    justify-content: center;
+    margin: 0 10px 10px 1em;
     font-size: 14px;
-    font-weight: 500;
     line-height: 1.4;
+}
+
+section {
+    display: inline-block;
+    max-width: var(--column-width);
+    margin: var(--gutter-width);
+    text-align: left;
+    vertical-align: top;
+}
+
+footer {
+    margin: var(--gutter-width);
+}
+
+h1 {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+table {
+    width: 100%;
+    margin: 10px 0;
+}
+
+th,
+td,
+textarea {
+    margin-right: 5px;
+    padding: 3px 6px;
+}
+
+th {
+    width: 10%;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+textarea {
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-gray-70);
+    border-radius: 1px;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: var(--color-gray-50);
+    box-shadow: 0 0 5px var(--color-gray-90);
+}
+
+textarea {
+    width: 480px;
+    height: 270px;
+    font-size: 12px;
+    vertical-align: bottom;
+    resize: none;
 }
 
 button {
@@ -79,47 +136,4 @@ button:hover {
 
 button:active {
     background-color: var(--color-gray-70);
-}
-
-section {
-    display: inline-block;
-    width: var(--column-width);
-    margin: var(--gutter-width);
-    text-align: left;
-    vertical-align: top;
-    min-width: var(--min-width);
-}
-
-table {
-    width: 100%;
-}
-
-th,
-td,
-textarea {
-    margin-right: 5px;
-    padding: 3px 6px;
-}
-
-th {
-    width: 10%;
-    font-weight: 500;
-    text-align: right;
-    white-space: nowrap;
-    vertical-align: middle;
-}
-
-textarea {
-    padding: 5px;
-    width: 100%;
-    height: 500px;
-    margin-right: 5px;
-    border: 1px solid var(--color-gray-70);
-    resize: none;
-    outline: none;
-    font-family: monospace;
-}
-
-textarea:focus {
-    box-shadow: 0 0 5px var(--color-gray-70);
 }
