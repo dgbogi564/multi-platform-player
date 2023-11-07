@@ -32,7 +32,7 @@ const useStore = create<State>()((persist(immer((set, get) => ({
             },
             playlist: () => {
                 const state = get();
-                const playlist = state.input.split(/\r?\n/).map(url => (url.match(urlPattern)!)[0])
+                const playlist = state.input.trim().split(/\r?\n/).map(url => (url.match(urlPattern)!)[0])
                     .filter(x => x).map((url) => ({ key: crypto.randomUUID(), url: 'https://' + url } as Track));
                 if (playlist.length === 0) {
                     return;
