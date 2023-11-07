@@ -1,22 +1,49 @@
-# Playlist Randomizer (tentative name)
+# Multi-platform Player
+
+## Introduction
+Multi-platform Player allows you to play songs from multiple platforms all in one place.
 
 ## Motivation
-Many music platforms have issues with the way they implement shuffling.
-- Youtube only loads 50 or so songs in a playlist at a time and only shuffles those loaded songs.
-- Similarly, when shuffling your likes on Soundcloud, only loads the first ~28 songs into queue and only shuffles those songs.
-- Spotify's shuffling algorithm is not a truly randomized one; it prioritizes placing songs it thinks you'll enjoy to the front of the queue, creating somewhat of a music echo chamber.
 
-## Goals
+There's no guarantee that a song you enjoy on one platform will be available on another:
+This can be very frustrating when you want to listen to all the music you enjoy, leaving you with only two options:
+- Either manually search for the songs another platform and add them to your playlist there.
+- Or swap between which platforms you want to listen to music on.
 
-The goal of this project is to create a website that can perform the following functions:
-- Play songs from multiple different music platforms.
-  - [x] Soundcloud
-  - [x] Youtube
-  - [ ] Spotify
-- [x] Truly randomize and shuffle songs.
-- [ ] Save, manage, and resume past sessions.
-- [ ] Convert playlists into individual songs.
-- [ ] Export sessions as input files.
+Some music platforms may also have issues with their shuffling algorithms:
+- Youtube playlists and Soundcloud likes only shuffles the first few songs in a playlist.
+- Spotify's shuffling algorithm is biased and you'll end up listening to the same set of songs over and over again. 
 
-## Issues
+## Features
+
+With multi-platform player, you don't have to make those compromises:
+- You can play all songs from any platform that is supported.
+- You can load as many songs as your computer can handle.
+- You can shuffle your songs without bias so every song has an equal chance of playing next.
+
+## Supported Sites
+
+This project currently relies on [react-player](https://github.com/cookpete/react-player) which can support the following sites:
+- DailyMotion
+- Facebook
+- Kaltura
+- Mixcloud
+- Soundcloud
+- Stremable
+- Twitch
+- Vidyard
+- Wistia
+- Youtube
+
+
+## Future Plans
+
+Nothing is guaranteed, but I would love to implement the following features the following tasks:
+- Support playlist resolution.
+- Add Spotify support.
+
+## Issues (regarding future plans)
+
 Soundcloud has indefinitely closed registration for their API so it may be impossible to implement playlist resolving at the moment.
+
+Spotify's iframe API lacks any options to control volume which would lead to a bad user experience.
