@@ -28,7 +28,7 @@ function App() {
 
     return (
         <>
-            <h1>Playlist Shuffler</h1>
+            <h1>Multi-platform Player</h1>
 
             <section>
 
