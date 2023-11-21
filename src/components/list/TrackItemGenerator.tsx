@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay, faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 import { TrackItem } from '../../interfaces/Item.tsx';
 
-
 const TrackItemGenerator = (playing: boolean, currentIndex: number,
                             togglePlay: (e: MouseEvent) => void) => ({ index, style, data }: TrackItem) => (
     <div className='row' aria-rowindex={index} style={style} onClick={togglePlay}>

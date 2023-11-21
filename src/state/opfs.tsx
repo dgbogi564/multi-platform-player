@@ -1,8 +1,6 @@
 import { StateStorage } from 'zustand/esm/middleware';
 import { compressSync, decompressSync, strFromU8, strToU8 } from 'fflate';
 
-
-
 const opfs: StateStorage = {
     setItem: async (name: string, value: string) => {
         const opfsRoot = await (async () => await navigator.storage.getDirectory())();

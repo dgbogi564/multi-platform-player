@@ -186,7 +186,6 @@ const useStore = create<State>()((persist(immer((set, get) => ({
     storage: createJSONStorage(() => opfs),
 })));
 
-
 export const select = {
     state: (state: State) => state,
     playing: (state: State) => state.playing,

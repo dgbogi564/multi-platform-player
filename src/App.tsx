@@ -1,10 +1,12 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import useStore, { select } from './state/store.tsx';
 import List from './components/list/List.tsx';
 import TrackItemGenerator from './components/list/TrackItemGenerator.tsx';
 import SessionItemGenerator from './components/list/SessionltemGenerator.tsx';
 import Track from './interfaces/Track.tsx';
+import { FixedSizeList } from 'react-window';
+import Session from './interfaces/Session.tsx';
 
 
 export default App;
@@ -16,6 +18,9 @@ function App() {
     const action = useStore(select.action);
     const sessionList = useStore(select.session.list);
     const sessionId = useStore(select.session.id);
+    const ref = {
+        playlist: useRef<FixedSizeList<Track[] | Session[]> | null>(null),
+    };
 
     let playlist = [] as Array<Track>, loop = null, index = -1, track = null;
     if (sessionId !== -1) {
@@ -24,6 +29,7 @@ function App() {
         loop = session.loop;
         index = session.index;
         track = playlist[index];
+        ref.playlist.current?.scrollToItem(index, 'center');
     }
 
     return (
@@ -100,6 +106,7 @@ function App() {
 
                 <div className='playlist-wrapper'>
                     <List data={playlist}
+                          ref={ref.playlist}
                           row={useMemo(() => TrackItemGenerator(
                               playing,
                               index,
